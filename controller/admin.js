@@ -53,10 +53,10 @@ const updateUser = async (id, name, email, age, amount) => {
   }
 };
 
-const newpolicy = async (amount, name,policy) => {
+const newpolicy = async (amount, name,policy,userid) => {
   try {
     const currentDate = new Date();
-    await database.query('INSERT INTO policy(policy_number, policy_holder, coverage_amount, start_date, end_date) VALUES (?, ?, ?, ?, ?)', [policy, name, amount, generateDates(currentDate), generateDates(new Date(currentDate.getFullYear() + 1, currentDate.getMonth(), currentDate.getDate()))]);
+    await database.query('INSERT INTO policy(policy_number, policy_holder, coverage_amount, start_date, end_date,user_id) VALUES (?, ?, ?, ?, ?,?)', [policy, name, amount, generateDates(currentDate), generateDates(new Date(currentDate.getFullYear() + 1, currentDate.getMonth(), currentDate.getDate())),userid]);
   } catch (error) {
     console.error('Error executing new policy:', error);
     throw error;
