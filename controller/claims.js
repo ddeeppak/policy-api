@@ -2,7 +2,7 @@ const database = require('../database/database');
 
 const getClaims = async (customer_id) => {
     try {
-        const [record] = await database.query('CALL GETCLAIMS(?)', [customer_id]);
+        const [record] = await database.query('SELECT * FROM Claims where USERS_ID=?', [customer_id]);
         return record;
     } catch (error) {
         console.error('Error in stored procedure:', error);
