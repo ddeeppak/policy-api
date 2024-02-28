@@ -9,18 +9,20 @@ const database = require("./database/database.js");
 const login = require('./router/login');
 const claims = require('./router/claims');
 const admin = require('./router/admin');
+const userentry = require('./router/userentry.js')
 const check = require('./middleware/check.js');
 const  c= require('./controller/claims.js');
 const rolecheck = require('./middleware/rolecheck');
 const roles = require('./config/roles');
 const usersOp = require ('./controller/admin.js');
 
+
 const cors = require('cors');
 
 
 app.use(cors());
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://policy-site-three.vercel.app');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     if (req.method === 'OPTIONS') {
         res.header('Access-Control-Allow-Methods', 'PUT,POST, GET, PATCH, DELETE');
@@ -52,6 +54,7 @@ app.use('/UserClaims',check, rolecheck(roles.ADMIN, roles.USER), async (req, res
   }
 });
 
+app.use('/userentry',userentry);
 
 app.use('/policyData', check, rolecheck(roles.USER), async (req, res, next) => {
   try {
